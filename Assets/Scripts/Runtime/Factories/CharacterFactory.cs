@@ -10,8 +10,8 @@ public class CharacterFactory
 
 	public IEnumerable<AbstractCharacter> Spawn(CharacterType characterType, int amount)
 	{
-		var bounds = sceneReferences.CharactersSpawnArea.bounds;
-		var folder = sceneReferences.CharactersFolder;
+		var bounds = sceneReferences.charactersSpawnArea.bounds;
+		var folder = sceneReferences.charactersFolder;
 		var prefab = sharedObjects.GetLootPrefab(characterType);
 		List<AbstractCharacter> charactersList = new();
 
@@ -26,6 +26,7 @@ public class CharacterFactory
 			character.transform.SetParent(folder);
 		}
 
+		prefab = null;
 		return charactersList;
 	}
 }

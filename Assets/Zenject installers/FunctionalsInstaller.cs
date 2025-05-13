@@ -5,11 +5,5 @@ public class FunctionalsInstaller : MonoInstaller
 	public override void InstallBindings()
 	{
 		Container.Bind<CharacterFactory>().AsTransient();
-		Container.Bind<Functionals>().AsSingle().OnInstantiated<Functionals>(OnInstantiated);
-	}
-
-	private void OnInstantiated(InjectContext context, Functionals functionals)
-	{
-
 	}
 }

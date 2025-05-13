@@ -4,7 +4,10 @@ using UnityEngine;
 [Serializable]
 public class TypeGOPrefab
 {
-	public CharacterType type;
-	public GameObject prefab;
+	[SerializeField] private CharacterType type;
+	[SerializeField] private GameObject prefab;
+
+	public CharacterType Type { get => type; }
+	public GameObject Prefab { get => prefab; }
 }
 
