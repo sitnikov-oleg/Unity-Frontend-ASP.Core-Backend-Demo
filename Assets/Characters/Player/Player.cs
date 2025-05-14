@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : AbstractCharacter
+public class Player : AbstractUnit
 {
     
 }

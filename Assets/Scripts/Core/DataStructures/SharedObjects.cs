@@ -9,12 +9,12 @@ public class SharedObjects
 
 	public GameObject GetLootPrefab(CharacterType type)
 	{
-		var data = typeGameObjectDatasList.FirstOrDefault(a => a.Type == type);
+		var data = typeGameObjectDatasList.FirstOrDefault(a => a.type == type);
 
-		if (data == null)
+		if (data.prefab == null)
 			throw new NullReferenceException($"{type} is not present in SharedObjects");
 
-		return data.Prefab;
+		return data.prefab;
 	}
 
 	public void SetTypeGameObjectDatasList(List<TypeGOPrefab> list) => typeGameObjectDatasList = list;
