@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +11,9 @@ public class EntryPoint : MonoBehaviour
 	{
 		var list = characterFactory.Spawn(CharacterType.PirateBlackbeard, 1);
 		sceneReferences.mainCamera.gameObject.SetActive(false);
-		sceneReferences.followCamera.gameObject.SetActive(true);
-		sceneReferences.followCamera.FindAndTargetPlayer();
+		sceneReferences.folowCamera.gameObject.SetActive(true);
+		var iplayer = (IPlayerCameraTarget)list.First();
+		sceneReferences.cinemachineVirtualCamera.Follow = iplayer.GetCameraTarget();
+		iplayer.GetPersonController().UpdateCamera(sceneReferences.folowCamera.gameObject);
 	}
 }

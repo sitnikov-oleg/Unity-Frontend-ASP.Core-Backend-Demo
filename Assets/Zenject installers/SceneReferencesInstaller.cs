@@ -1,14 +1,13 @@
 using Cinemachine;
 using UnityEngine;
-using UnityStandardAssets.Cameras;
 using Zenject;
 
 public class SceneReferencesInstaller : MonoInstaller
 {
 	public Collider charactersSpawnArea;
 	public Transform charactersFolder;
-	public AutoCam followCamera;
-	public Camera mainCamera;
+	public CinemachineVirtualCamera cinemachineVirtualCamera;
+	public Camera mainCamera, folowCamera;
 
 	public override void InstallBindings()
 	{
@@ -19,7 +18,8 @@ public class SceneReferencesInstaller : MonoInstaller
 	{
 		references.charactersFolder = charactersFolder;
 		references.charactersSpawnArea = charactersSpawnArea;
-		references.followCamera = followCamera;
+		references.cinemachineVirtualCamera = cinemachineVirtualCamera;
 		references.mainCamera = mainCamera;
+		references.folowCamera = folowCamera;
 	}
 }

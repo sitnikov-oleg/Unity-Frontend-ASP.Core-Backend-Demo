@@ -19,7 +19,7 @@ public class CharacterFactory
 		{
 			var posX = Random.Range(bounds.min.x, bounds.max.x);
 			var posZ = Random.Range(bounds.min.z, bounds.max.z);
-			NavMesh.SamplePosition(new Vector3(posX, 0, posZ), out var hit, 10, NavMesh.AllAreas);
+			NavMesh.SamplePosition(new Vector3(posX, 4, posZ), out var hit, 10, NavMesh.AllAreas);
 			var rot = Quaternion.Euler(0, Random.Range(0, 360), 0);
 			var character = Object.Instantiate(prefab, hit.position, rot, folder).GetComponent<AbstractUnit>();
 			charactersList.Add(character);

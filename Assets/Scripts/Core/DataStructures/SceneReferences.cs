@@ -1,10 +1,10 @@
+using Cinemachine;
 using UnityEngine;
-using UnityStandardAssets.Cameras;
 
 public class SceneReferences
 {
 	public Collider charactersSpawnArea;
 	public Transform charactersFolder;
-	public AutoCam followCamera;
-	public Camera mainCamera;
+	public CinemachineVirtualCamera cinemachineVirtualCamera;
+	public Camera mainCamera, folowCamera;
 }
