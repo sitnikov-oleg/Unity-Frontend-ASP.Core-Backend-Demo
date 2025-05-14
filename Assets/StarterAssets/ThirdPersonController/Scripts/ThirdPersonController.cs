@@ -181,8 +181,14 @@ namespace StarterAssets
 			// set sphere position, with offset
 			Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
 				transform.position.z);
-			Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
+
+			var arr = Physics.OverlapSphere(spherePosition, GroundedRadius, GroundLayers,
 				QueryTriggerInteraction.Ignore);
+
+			if (arr.Length == 1 && arr[0].transform == transform)
+				Grounded = false;
+			else
+				Grounded = arr.Length > 0;
 
 			// update animator if using character
 			if (_hasAnimator)
