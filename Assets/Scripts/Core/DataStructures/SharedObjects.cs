@@ -9,7 +9,7 @@ public class SharedObjects
 
 	public GameObject GetLootPrefab(CharacterType type)
 	{
-		var data = typeGameObjectDatasList.FirstOrDefault(a => a.type == type);
+		var data = typeGameObjectDatasList.FirstOrDefault(a => a.type == type.ToString());
 
 		if (data.prefab == null)
 			throw new NullReferenceException($"{type} is not present in SharedObjects");

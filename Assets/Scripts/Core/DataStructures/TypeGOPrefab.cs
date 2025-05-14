@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public struct TypeGOPrefab
 {
-	public CharacterType type;
+	public string type;
 	public GameObject prefab;
 }
 
