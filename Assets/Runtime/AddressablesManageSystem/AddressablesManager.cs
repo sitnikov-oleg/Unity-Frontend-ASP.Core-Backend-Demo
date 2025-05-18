@@ -42,7 +42,7 @@ public class AddressablesManager : MonoBehaviour
 
 			var angle = StaticFunctions.CalculateAngle(
 				sceneReferences.folowCamera.transform,
-				item.target.position
+				item.Target.position
 			);
 
 			angle = Mathf.Abs(angle);
@@ -64,7 +64,7 @@ public class AddressablesManager : MonoBehaviour
 		data.isInstantiated = true;
 
 		data
-			.assetReferenceGO.InstantiateAsync(data.folder)
+			.AssetReferenceGO.InstantiateAsync(data.Folder)
 			.Completed += (h) =>
 		{
 			if (h.Status == AsyncOperationStatus.Succeeded)
