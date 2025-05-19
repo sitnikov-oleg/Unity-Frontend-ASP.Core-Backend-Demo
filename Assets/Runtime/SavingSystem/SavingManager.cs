@@ -1,4 +1,3 @@
-using System;
 using Zenject;
 
 public class SavingManager : AbstractSavingManager, IInitializable
@@ -26,18 +25,10 @@ public class SavingManager : AbstractSavingManager, IInitializable
 	{
 		Init();
 		LoadES3Data(GetSavingData<PlayerSavingData>(SavingDataType.Player));
-
-		if (IsSavingDatasEmpty())
-			EventBus<PlayerNameEvnt>.Subscribe(OnPlayerNameEvnt);
 	}
 
 	public void Initialize()
 	{
 
-	}
-
-	private void OnPlayerNameEvnt(PlayerNameEvnt evnt)
-	{
-		GetSavingData<PlayerSavingData>(SavingDataType.Player).SetPlayerName(evnt.name);
 	}
 }

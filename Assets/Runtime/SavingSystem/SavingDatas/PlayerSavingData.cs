@@ -1,5 +1,3 @@
-using System;
-
 public class PlayerSavingData : AbstractSavingData
 {
 	public string playerName;
@@ -14,12 +12,20 @@ public class PlayerSavingData : AbstractSavingData
 		playerName = null;
 	}
 
+	public override void Init(AbstractSavingManager savingManager)
+	{
+		base.Init(savingManager);
+
+		if (IsDataEmpty())
+			EventBus<PlayerNameEvnt>.Subscribe(a => SetPlayerName(a.name));
+	}
+
 	protected override void SaveDataObject()
 	{
 		ES3.Save(ToString(), this);
 	}
 
-	internal void SetPlayerName(string name)
+	private void SetPlayerName(string name)
 	{
 		playerName = name;
 		SaveData(false);
