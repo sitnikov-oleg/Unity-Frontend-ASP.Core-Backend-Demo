@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class SharedObjects
 {
-	private List<TypeGOPrefab> typeGameObjectDatasList;
+	private List<IDGameObjectData> idGameObjectDatasList;
 
 	public GameObject GetLootPrefab(CharacterType type)
 	{
-		var data = typeGameObjectDatasList.FirstOrDefault(a => a.type == type.ToString());
+		var data = idGameObjectDatasList.FirstOrDefault(a => a.id == type.ToString());
 
-		if (data.prefab == null)
+		if (data.gameObject == null)
 			throw new NullReferenceException($"{type} is not present in SharedObjects");
 
-		return data.prefab;
+		return data.gameObject;
 	}
 
-	public void SetTypeGameObjectDatasList(List<TypeGOPrefab> list) => typeGameObjectDatasList = list;
+	public void SetTypeGameObjectDatasList(List<IDGameObjectData> list) => idGameObjectDatasList = list;
 }

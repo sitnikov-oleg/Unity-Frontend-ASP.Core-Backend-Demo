@@ -3,7 +3,7 @@ using Zenject;
 
 public class SharedObjectsInstaller : MonoInstaller
 {
-	public List<TypeGOPrefab> typeGameObjectDatasList;
+	public List<IDGameObjectData> idGameObjectDatasList;
 
 	public override void InstallBindings()
 	{
@@ -12,6 +12,6 @@ public class SharedObjectsInstaller : MonoInstaller
 
 	private void OnInstantiated(InjectContext context, SharedObjects objects)
 	{
-		objects.SetTypeGameObjectDatasList(typeGameObjectDatasList);
+		objects.SetTypeGameObjectDatasList(idGameObjectDatasList);
 	}
 }
