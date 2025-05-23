@@ -3,10 +3,10 @@ using Unity.Burst;
 using Unity.Entities;
 
 [BurstCompile]
-public partial class SpawnCitizensSystem : SystemBase
+public partial class SpawnCitizensSystem : CommonSystem
 {
 	private const string NPC_CITIZEN = "NPCCitizen";
-	private const int NPC_CITIZEN_AMOUNT = 10;
+	private const int NPC_CITIZEN_AMOUNT = 500;
 
 	[BurstCompile]
 	protected override void OnStartRunning()
@@ -24,15 +24,12 @@ public partial class SpawnCitizensSystem : SystemBase
 
 		for (int i = 0; i < NPC_CITIZEN_AMOUNT; i++)
 		{
-			var npc = npces[RandomGenerator.GenerateInt(0, npces.Length)];
+			var index = RandomGenerator.ValueRW.rnd.NextInt(0, npces.Length);
+			var npc = npces[index];
 			characterFactorySystem.CreateCharacters(ecb, 1, npc.id);
 		}
 
 		arr.Dispose();
-	}
-
-	protected override void OnUpdate()
-	{
 		Enabled = false;
 	}
 }

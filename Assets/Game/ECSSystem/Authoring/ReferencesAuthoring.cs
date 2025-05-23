@@ -11,7 +11,7 @@ class ReferencesAuthoringBaker : Baker<ReferencesAuthoring>
 	public override void Bake(ReferencesAuthoring authoring)
 	{
 		var entity = GetEntity(TransformUsageFlags.Dynamic);
-		AddComponent(entity, new ReferencesTag());
+		AddComponent(entity, new CitizensBoundsTag());
 
 		if (authoring.spawnArea)
 		{

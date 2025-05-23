@@ -2,7 +2,7 @@ using Unity.Burst;
 using Unity.Entities;
 
 [BurstCompile]
-public partial class UnitStatesSystem : SystemBase
+public partial class UnitStatesSystem : CommonSystem
 {
 	protected JobTrackerSystem jobTrackerSystem;
 

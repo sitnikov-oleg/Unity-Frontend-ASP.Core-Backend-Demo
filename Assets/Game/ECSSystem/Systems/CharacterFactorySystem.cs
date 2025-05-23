@@ -1,18 +1,17 @@
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Transforms;
 
 [BurstCompile]
-public partial class CharacterFactorySystem : SystemBase
+public partial class CharacterFactorySystem : CommonSystem
 {
 	[BurstCompile]
 	public void CreateCharacters(EntityCommandBuffer ecb, int count, FixedString32Bytes id)
 	{
 		Entity prefab = default;
 		var buffer = SystemAPI.GetSingletonBuffer<IDGameObjectDataECS>();
-		var refEntity = SystemAPI.GetSingletonEntity<ReferencesTag>();
+		var refEntity = SystemAPI.GetSingletonEntity<CitizensBoundsTag>();
 		var bounds = EntityManager.GetComponentData<BoundsComponent>(refEntity);
 
 
@@ -28,14 +27,9 @@ public partial class CharacterFactorySystem : SystemBase
 		for (int i = 0; i < count; i++)
 		{
 			var newUnitEntity = ecb.Instantiate(prefab);
-			var pos = RandomGenerator.GenerateFloat3(bounds.min, bounds.max);
-			//var pos = new float3(bounds.center.x, 3, bounds.center.z);
+			var pos = RandomGenerator.ValueRW.rnd.NextFloat3(bounds.min, bounds.max);
 			ecb.SetComponent(newUnitEntity, LocalTransform.FromPosition(pos));
 			ecb.AddComponent(newUnitEntity, new UnitIdleStateComponent());
 		}
-	}
-
-	protected override void OnUpdate()
-	{
 	}
 }

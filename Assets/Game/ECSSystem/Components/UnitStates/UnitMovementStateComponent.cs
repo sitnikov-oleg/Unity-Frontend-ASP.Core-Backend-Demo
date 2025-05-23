@@ -1,25 +1,25 @@
 using Rukhanka;
 using Unity.Entities;
+using Unity.Mathematics;
 
 public struct UnitMovementStateComponent : IComponentData, IUnitState
 {
 	private Entity entity;
 	private bool started;
 	public bool IsStarted { get => started; }
-	private FastAnimatorParameter run;
+	private FastAnimatorParameter walk;
+	public float3 targetPos;
 
-	public void StartState(Entity e) { }
-
-	public void StartState(Entity e, AnimatorParametersAspect aspect)
+	public void StartState(Entity e)
 	{
 		entity = e;
 		started = true;
-		run = new FastAnimatorParameter("Run");
+		walk = new FastAnimatorParameter("Walk");
 	}
 
 	public void SetAnimation(AnimatorParametersAspect aspect, bool value)
 	{
-		aspect.SetParameterValue(run, value);
+		aspect.SetParameterValue(walk, value);
 	}
 
 	public void OnFinish<T>() { }
