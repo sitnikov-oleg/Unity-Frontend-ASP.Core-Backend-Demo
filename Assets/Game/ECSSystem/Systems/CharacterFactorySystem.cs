@@ -29,7 +29,7 @@ public partial class CharacterFactorySystem : CommonSystem
 			var newUnitEntity = ecb.Instantiate(prefab);
 			var pos = RandomGenerator.ValueRW.rnd.NextFloat3(bounds.min, bounds.max);
 			ecb.SetComponent(newUnitEntity, LocalTransform.FromPosition(pos));
-			ecb.AddComponent(newUnitEntity, new UnitIdleStateComponent());
+			ecb.AddComponent(newUnitEntity, new UnitSpawnedStateComponent() { spawnPos = pos });
 		}
 	}
 }

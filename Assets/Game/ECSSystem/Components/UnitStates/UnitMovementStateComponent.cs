@@ -9,12 +9,14 @@ public struct UnitMovementStateComponent : IComponentData, IUnitState
 	public bool IsStarted { get => started; }
 	private FastAnimatorParameter walk;
 	public float3 targetPos;
+	public Random rnd;
 
-	public void StartState(Entity e)
+	public void StartState(Entity e, int index)
 	{
 		entity = e;
 		started = true;
 		walk = new FastAnimatorParameter("Walk");
+		rnd = Random.CreateFromIndex((uint)index);
 	}
 
 	public void SetAnimation(AnimatorParametersAspect aspect, bool value)
@@ -24,4 +26,8 @@ public struct UnitMovementStateComponent : IComponentData, IUnitState
 
 	public void OnFinish<T>() { }
 	public void Dispose() { }
+
+	public void StartState(Entity e)
+	{
+	}
 }

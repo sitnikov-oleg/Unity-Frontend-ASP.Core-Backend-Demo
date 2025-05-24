@@ -12,7 +12,6 @@ public partial struct UnitWalkStateJob : IJobEntity
 	[ReadOnly]
 	public NavMeshQuerySystem.Singleton singleton;
 	public BoundsComponent boundsComponent;
-	public uint randomIndex;
 
 	[BurstCompile]
 	public void Execute(
@@ -21,19 +20,18 @@ public partial struct UnitWalkStateJob : IJobEntity
 		RefRW<AgentBody> agent,
 		AnimatorParametersAspect aspect,
 		RefRO<NavMeshPath> navMeshPath,
-		RefRO<LocalToWorld> transform
+		RefRO<LocalToWorld> transform,
+		[EntityIndexInChunk] int index
 	)
 	{
 		if (!component.ValueRO.IsStarted)
 		{
-			component.ValueRW.StartState(e);
+			component.ValueRW.StartState(e, index);
 		}
 
 		if (component.ValueRO.targetPos.Equals(float3.zero))
 		{
-			var pos = Random
-				.CreateFromIndex(randomIndex)
-				.NextFloat3(boundsComponent.min, boundsComponent.max);
+			var pos = component.ValueRW.rnd.NextFloat3(boundsComponent.min, boundsComponent.max);
 
 			var location = singleton.MapLocation(
 				pos,
@@ -46,9 +44,12 @@ public partial struct UnitWalkStateJob : IJobEntity
 		}
 		else if (
 			!component.ValueRO.targetPos.Equals(float3.zero)
-			&& (component.ValueRO.targetPos - transform.ValueRO.Position).GetMagnitude() < 0.5f
+			&& agent.ValueRO.Velocity.GetMagnitude() > 0
+			&& agent.ValueRO.RemainingDistance < 0.5f
 		)
+		{
 			component.ValueRW.targetPos = float3.zero;
+		}
 		else
 		{
 			agent.ValueRW.SetDestination(component.ValueRO.targetPos);

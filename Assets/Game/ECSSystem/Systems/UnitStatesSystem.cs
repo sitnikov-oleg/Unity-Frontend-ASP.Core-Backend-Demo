@@ -1,3 +1,4 @@
+using ProjectDawn.Navigation;
 using Unity.Burst;
 using Unity.Entities;
 
@@ -5,6 +6,18 @@ using Unity.Entities;
 public partial class UnitStatesSystem : CommonSystem
 {
 	protected JobTrackerSystem jobTrackerSystem;
+	protected NavMeshQuerySystem.Singleton navMeshQuerySystem;
+	protected BoundsComponent bounds;
+
+	protected EntityCommandBuffer.ParallelWriter EcbParallel =>
+		SystemAPI
+			.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>()
+			.CreateCommandBuffer(World.Unmanaged).AsParallelWriter();
+
+	protected EntityCommandBuffer Ecb =>
+		SystemAPI
+			.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>()
+			.CreateCommandBuffer(World.Unmanaged);
 
 	/// <summary>
 	/// O - old unit state component, N - new unit state component
@@ -25,17 +38,26 @@ public partial class UnitStatesSystem : CommonSystem
 		ecb.AddComponent<N>(e);
 	}
 
-	protected override void OnCreate()
+	protected override void OnStartRunning()
 	{
-		base.OnCreate();
+		base.OnStartRunning();
 		jobTrackerSystem = World.GetExistingSystemManaged<JobTrackerSystem>();
+		navMeshQuerySystem = SystemAPI.GetSingleton<NavMeshQuerySystem.Singleton>();
+		var boundsEntity = SystemAPI.GetSingletonEntity<CitizensBoundsTag>();
+		bounds = SystemAPI.GetComponent<BoundsComponent>(boundsEntity);
 	}
 
 	[BurstCompile]
 	protected override void OnUpdate()
 	{
-		var job = new UnitIdleStateJob().ScheduleParallel(this.Dependency);
-		jobTrackerSystem.AddJob(typeof(UnitIdleStateJob), job);
+		var job = new UnitSpawnedStateJob()
+		{
+			boundsComponent = bounds,
+			ecb = EcbParallel,
+			singleton = navMeshQuerySystem
+		}.ScheduleParallel(this.Dependency);
+
+		jobTrackerSystem.AddJob(typeof(UnitSpawnedStateJob), job);
 		job.Complete();
 	}
 }

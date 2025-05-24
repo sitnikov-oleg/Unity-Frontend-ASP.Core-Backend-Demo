@@ -6,7 +6,6 @@ using Unity.Entities;
 public partial class SpawnCitizensSystem : CommonSystem
 {
 	private const string NPC_CITIZEN = "NPCCitizen";
-	private const int NPC_CITIZEN_AMOUNT = 500;
 
 	[BurstCompile]
 	protected override void OnStartRunning()
@@ -14,6 +13,7 @@ public partial class SpawnCitizensSystem : CommonSystem
 		base.OnStartRunning();
 		var characterFactorySystem = World.GetExistingSystemManaged<CharacterFactorySystem>();
 		var idGameObjectDatasBuffer = SystemAPI.GetSingletonBuffer<IDGameObjectDataECS>();
+		var gamePreferences = SystemAPI.GetSingleton<GamePreferencesComponent>();
 
 		var ecb = SystemAPI
 			.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>()
@@ -22,7 +22,7 @@ public partial class SpawnCitizensSystem : CommonSystem
 		var arr = idGameObjectDatasBuffer.AsNativeArray();
 		var npces = arr.Where(a => a.id.Value.Contains(NPC_CITIZEN)).ToArray();
 
-		for (int i = 0; i < NPC_CITIZEN_AMOUNT; i++)
+		for (int i = 0; i < gamePreferences.citizensAmount; i++)
 		{
 			var index = RandomGenerator.ValueRW.rnd.NextInt(0, npces.Length);
 			var npc = npces[index];
