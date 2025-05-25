@@ -38,6 +38,15 @@ public partial class UnitStatesSystem : CommonSystem
 		ecb.AddComponent<N>(e);
 	}
 
+	[BurstCompile]
+	protected override void OnCreate()
+	{
+		base.OnCreate();
+		RequireForUpdate<NavMeshQuerySystem.Singleton>();
+		RequireForUpdate<CitizensBoundsTag>();
+	}
+
+	[BurstCompile]
 	protected override void OnStartRunning()
 	{
 		base.OnStartRunning();

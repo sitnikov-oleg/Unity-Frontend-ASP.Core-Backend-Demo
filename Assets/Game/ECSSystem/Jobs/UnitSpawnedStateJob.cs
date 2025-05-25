@@ -16,11 +16,15 @@ public partial struct UnitSpawnedStateJob : IJobEntity
 	[BurstCompile]
 	public void Execute(
 		Entity entity,
-		RefRO<UnitSpawnedStateComponent> component,
+		RefRW<UnitSpawnedStateComponent> component,
 		RefRO<NavMeshPath> navMeshPath,
 		[EntityIndexInChunk] int sortKey
 	)
 	{
+		if (component.ValueRO.IsStarted)
+			return;
+		else component.ValueRW.StartState(entity);
+
 		var location = singleton.MapLocation(
 			component.ValueRO.spawnPos,
 			navMeshPath.ValueRO.MappingExtent,

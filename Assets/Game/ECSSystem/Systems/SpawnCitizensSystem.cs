@@ -8,6 +8,14 @@ public partial class SpawnCitizensSystem : CommonSystem
 	private const string NPC_CITIZEN = "NPCCitizen";
 
 	[BurstCompile]
+	protected override void OnCreate()
+	{
+		base.OnCreate();
+		RequireForUpdate<IDGameObjectDataECS>();
+		RequireForUpdate<GamePreferencesComponent>();
+	}
+
+	[BurstCompile]
 	protected override void OnStartRunning()
 	{
 		base.OnStartRunning();

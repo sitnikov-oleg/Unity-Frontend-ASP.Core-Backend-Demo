@@ -3,6 +3,7 @@ using Unity.Burst;
 using Unity.Entities;
 
 [BurstCompile]
+[UpdateAfter(typeof(SpawnCitizensSystem))]
 public partial class UnitsMoveSystem : UnitStatesSystem
 {
 	[BurstCompile]
