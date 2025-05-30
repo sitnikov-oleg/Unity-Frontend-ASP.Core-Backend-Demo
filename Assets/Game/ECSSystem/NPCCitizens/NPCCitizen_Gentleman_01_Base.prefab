@@ -179,9 +179,9 @@ MonoBehaviour:
   AreaMask: -1
   AutoRepath: 1
   MappingExtent:
-    x: 10
-    y: 10
-    z: 10
+    x: 3
+    y: 3
+    z: 3
 --- !u!114 &2713955534627474757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,4 +196,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HiveMindStop:
     Enabled: 1
-    Radius: 1
+    Radius: 0.8

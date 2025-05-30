@@ -44,6 +44,7 @@ public partial class JobTrackerSystem : SystemBase
 	[BurstCompile]
 	public JobHandle GetJob(Type type)
 	{
-		return activeJobs[type];
+		activeJobs.TryGetValue(type, out var jobHandle);
+		return jobHandle;
 	}
 }
