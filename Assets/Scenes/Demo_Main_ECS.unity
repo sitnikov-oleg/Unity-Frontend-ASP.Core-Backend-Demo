@@ -155,6 +155,8 @@ MonoBehaviour:
     gameObject: {fileID: 7831617974272560222, guid: 0fa592f24dda66449904a57a67778ac9, type: 3}
   - id: NPCCitizen_Gentleman_01
     gameObject: {fileID: 534245560584739519, guid: b320d817877ac94428e5fe452c001ca8, type: 3}
+  - id: PlayerECS
+    gameObject: {fileID: 1720870747327131299, guid: 92ea7227e4ec3a34c93ed7fdaee1b9a7, type: 3}
 --- !u!4 &93876780
 Transform:
   m_ObjectHideFlags: 0

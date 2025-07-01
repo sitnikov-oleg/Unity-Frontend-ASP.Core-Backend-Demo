@@ -9,16 +9,6 @@ public partial class UnitStatesSystem : CommonSystem
 	protected NavMeshQuerySystem.Singleton navMeshQuerySystem;
 	protected BoundsComponent bounds;
 
-	protected EntityCommandBuffer.ParallelWriter EcbParallel =>
-		SystemAPI
-			.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>()
-			.CreateCommandBuffer(World.Unmanaged).AsParallelWriter();
-
-	protected EntityCommandBuffer Ecb =>
-		SystemAPI
-			.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>()
-			.CreateCommandBuffer(World.Unmanaged);
-
 	/// <summary>
 	/// O - old unit state component, N - new unit state component
 	/// </summary>
